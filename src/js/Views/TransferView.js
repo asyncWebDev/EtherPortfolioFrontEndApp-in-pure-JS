@@ -11,7 +11,7 @@ class TransferView extends View {
       <label>Amount</label>
       <div>
         <input
-          type="text"
+          type="number"
           id="send--to--input--amount"
           placeholder="Input token amount"
           required

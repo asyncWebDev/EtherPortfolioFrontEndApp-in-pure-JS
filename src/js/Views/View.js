@@ -6,18 +6,19 @@ export default class View {
   errorMessage = 'Failed to load feature'; //default message
 
   renderError() {
-    let html = `<div class="error">${this.errorMessage}</div>
+    const html = `<p class="error">${this.errorMessage}</p>
     `;
   }
 
   renderComponent(data) {
     this._data = data;
+    this.clear();
     const markup = this.createMarkup();
     this.parentElement.insertAdjacentHTML('beforeend', markup);
   }
 
   clear() {
-    this.parentElement = '';
+    this.parentElement.innerHTML = '';
   }
 
   sidebarHandler(handler) {

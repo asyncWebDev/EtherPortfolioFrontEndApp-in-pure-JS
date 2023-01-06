@@ -5,6 +5,8 @@ class TrackerView extends View {
   parentElement = document.querySelector('.coins--grid');
   errorMessage = 'Tracker failed to load';
 
+  clear() {}
+
   createMarkup() {
     return `
     <div class="coin-tracker">

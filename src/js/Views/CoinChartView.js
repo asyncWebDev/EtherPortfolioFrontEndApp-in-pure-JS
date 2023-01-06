@@ -1,14 +1,18 @@
 import View from './View.js';
-import { Chart } from 'chart.js/auto';
+import Chart from 'chart.js/auto';
 
 const options = {};
 
 class CoinChartView extends View {
+  parentElement = '';
+  coinChart = null;
+  clear() {}
+
   createMarkup() {
     this.parentElement = document.getElementById('structure-chart');
 
-    console.log(this._data);
-    return new Chart(this.parentElement, {
+    if (this.coinChart !== null) this.coinChart.destroy();
+    this.coinChart = new Chart(this.parentElement, {
       type: 'line',
       data: {
         labels: this._data[0],
@@ -28,6 +32,8 @@ class CoinChartView extends View {
         },
       },
     });
+
+    return this.coinChart;
   }
 
   displayCoinChartHandler(handler) {
