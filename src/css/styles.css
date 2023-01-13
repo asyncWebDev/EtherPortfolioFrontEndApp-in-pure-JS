@@ -105,6 +105,7 @@ html {
 }
 
 .main-view {
+  height: 100vh;
   margin: 6rem 5rem;
   display: flex;
   justify-content: center;
@@ -334,4 +335,44 @@ select:hover {
   font-family: 'Plus Jakarta Sans', sans-serif;
   background-color: #495057;
   color: #adb5bd;
+}
+
+.main-error {
+  font-size: 2rem;
+}
+
+.sidebar-error {
+  display: flex;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.loader-wrapper {
+  margin-top: 10rem;
+  width: 8rem;
+  height: 8rem;
+}
+
+.loader-wrapper .loader {
+  width: 100%;
+  height: 100%;
+  border: 0.5rem solid #162534;
+  border-radius: 50%;
+  animation: rotate 2s linear infinite;
+}
+
+.loader-wrapper .loader-outer {
+  border-top-color: var(--gray--dark);
+  border-bottom-color: var(--gray--dark);
+}
+
+.loader-wrapper .loader-inner {
+  border-top-color: var(--gray--dark);
+  border-bottom-color: var(--gray--dark);
+}
+
+@keyframes rotate {
+  100% {
+    transform: scale(1) rotate(-360deg);
+  }
 }

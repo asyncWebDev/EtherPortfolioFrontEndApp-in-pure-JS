@@ -6,16 +6,20 @@ import WalletCoinsView from './Views/WalletCoinsView.js';
 import TransferView from './Views/TransferView.js';
 import NavView from './Views/NavView.js';
 
-const sidebarCoinsTracker = async function () {
-  model.topDefiTokens.forEach(async token =>
-    TrackerView.renderComponent(await model.getSidebarTrackerData(token))
-  );
+const sidebarCoinsTracker = async () => {
+  try {
+    model.topDefiTokens.forEach(async token =>
+      TrackerView.renderComponent(await model.getSidebarTrackerData(token))
+    );
+  } catch (error) {
+    throw error;
+  }
 };
 
-const navigationSetter = function () {
+const navigationSetter = () => {
   NavView.renderComponent();
 
-  const takeSearchForAddressHandler = function (e) {
+  const takeSearchForAddressHandler = e => {
     const searchForAddress = NavView.takeSearchForAddress();
     model.takeActiveAddress(searchForAddress);
     walletDashboard(e);
@@ -24,46 +28,63 @@ const navigationSetter = function () {
   NavView.submitUserInputs(takeSearchForAddressHandler);
 };
 
-const walletDashboard = async function (e) {
-  e.preventDefault();
+const walletDashboard = async e => {
+  try {
+    e.preventDefault();
 
-  const coinsInWallet = await model.getWalletContent(model.activeAddress);
+    WalletCoinsView.renderLoader();
 
-  const balance = model.countBalance(coinsInWallet);
+    const tokensInWallet = await model.getWalletContent(model.activeAddress);
 
-  WalletCoinsView.renderComponent(coinsInWallet);
+    const balance = model.countBalance(tokensInWallet);
+
+    WalletCoinsView.renderComponent([tokensInWallet, balance]);
+  } catch (error) {
+    throw error;
+  }
 };
 
-const transferTokens = async function (e) {
-  e.preventDefault();
-  TransferView.renderComponent();
+const setDisplayToken = token => {
+  try {
+    // CoinChartView.renderLoader();
 
-  const transferTokensHandler = function () {
-    const sender = transferModel.takeSenderData(
-      transferModel.provider,
-      transferModel.signer
-    );
-    const receiver = transferModel.takeReceiverData(
-      TransferView.takeSendToData()
-    );
-    console.log(sender, receiver);
-    transferModel.sendEther(sender, receiver);
-  };
+    const getTokenId = async selectedToken => {
+      const tokenId = await model.getCoingeckoId(selectedToken);
+      return tokenId.id;
+    };
 
-  TransferView.submitUserInputs(transferTokensHandler);
+    const renderChart = async () => {
+      CoinChartView.renderComponent(
+        await model.getHistoricalTokenPrice(await getTokenId(token))
+      );
+    };
+    renderChart();
+  } catch (error) {
+    throw error;
+  }
 };
 
-const setDisplayToken = function (token) {
-  const getTokenId = async function (selectedToken) {
-    const tokenId = await model.getCoingeckoId(selectedToken);
-    return tokenId.id;
-  };
-  const renderChart = async function () {
-    CoinChartView.renderComponent(
-      await model.getHistoricalTokenPrice(await getTokenId(token))
-    );
-  };
-  renderChart();
+const transferTokens = async e => {
+  try {
+    e.preventDefault();
+    TransferView.renderComponent();
+
+    const transferTokensHandler = () => {
+      const sender = transferModel.takeSenderData(
+        transferModel.provider,
+        transferModel.signer
+      );
+      const receiver = transferModel.takeReceiverData(
+        TransferView.takeSendToData()
+      );
+      console.log(sender, receiver);
+      transferModel.sendEther(sender, receiver);
+    };
+
+    TransferView.submitUserInputs(transferTokensHandler);
+  } catch (error) {
+    throw error;
+  }
 };
 
 WalletCoinsView.sidebarHandler(walletDashboard);

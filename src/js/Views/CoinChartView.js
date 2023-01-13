@@ -6,7 +6,16 @@ const options = {};
 class CoinChartView extends View {
   parentElement = '';
   coinChart = null;
-  clear() {}
+
+  renderLoader() {
+    const html = `<div class="loader-wrapper">
+      <div class="loader loader-outer">
+        <div class="loader loader-inner"></div>
+      </div>
+    </div>`;
+    this.parentElement = document.querySelector('.chart-container');
+    this.parentElement.insertAdjacentHTML('beforeend', html);
+  }
 
   createMarkup() {
     this.parentElement = document.getElementById('structure-chart');

@@ -1,30 +1,5 @@
 import { COVALENT_KEY } from './config';
-
-export const getSidebarTrackerData = async function (token) {
-  try {
-    class Coin {
-      constructor(name, price) {
-        this.name = name;
-        this.price = price;
-      }
-    }
-
-    const tokenName = token[0];
-    const tokenTicker = token[1];
-    const response = await fetch(
-      `https://api.coingecko.com/api/v3/coins/${tokenName}/market_chart?vs_currency=usd&days=1&interval=daily
-      `
-    );
-    const data = await response.json();
-    const tokenLabel = new Array();
-    const tokenPrice = data.prices[0][1];
-    tokenLabel.push(tokenTicker, tokenPrice);
-    return new Coin(...tokenLabel);
-  } catch (err) {
-    console.error(err);
-    err;
-  }
-};
+import { fetchAPI } from './helpers';
 
 export const topDefiTokens = [
   ['bitcoin', 'BTC'],
@@ -34,66 +9,76 @@ export const topDefiTokens = [
   ['uniswap', 'UNI'],
 ];
 
+export const getSidebarTrackerData = async token => {
+  try {
+    const [tokenName, tokenTicker] = token;
+    const data =
+      await fetchAPI(`https://api.coingecko.com/api/v3/coins/${tokenName}/market_chart?vs_currency=usd&days=1&interval=daily
+    `);
+    const tokenPrice = data.prices[0][1];
+    return { ticker: tokenTicker, price: tokenPrice };
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export let activeAddress;
 
-export const takeActiveAddress = function (address) {
-  console.log(address);
+export const takeActiveAddress = address => {
   return (activeAddress = address);
 };
 
 export const getWalletContent = async activeAddress => {
   try {
-    const response = await fetch(
+    const data = await fetchAPI(
       `https://api.covalenthq.com/v1/1/address/${activeAddress}/balances_v2/?quote-currency=USD&format=JSON&nft=true&no-nft-fetch=true&key=${COVALENT_KEY}`
     );
-    const data = await response.json();
-    console.log(data);
-    const coinsWalletContent = new Array();
+    const tokensWalletContent = new Array();
     const tokens = data.data.items;
-    tokens.map(coin => {
+    tokens.map(token => {
       if (
-        coin.type === 'cryptocurrency' &&
-        coin.balance >= 1 &&
-        coin.contract_name.length >= 1
+        token.type === 'cryptocurrency' &&
+        token.balance >= 1 &&
+        token.contract_name.length >= 1
       ) {
         const cryptocurrency = {
-          coinName: coin.contract_name,
-          coinAddress: coin.contract_address,
-          coinAmount: coin.balance / 10 ** coin.contract_decimals,
-          coinPrice: coin.quote_rate,
-          coinTicker: coin.contract_ticker_symbol,
+          tokenName: token.contract_name,
+          tokenAddress: token.contract_address,
+          tokenAmount: token.balance / 10 ** token.contract_decimals,
+          tokenPrice: token.quote_rate,
+          tokenTicker: token.contract_ticker_symbol,
         };
-        cryptocurrency.coinValue = cryptocurrency.coinAmount * coin.quote_rate;
-        cryptocurrency.logo = `logos.covalenthq.com/tokens/1/${cryptocurrency.coinAddress}.png`;
-        coinsWalletContent.push(cryptocurrency);
+        cryptocurrency.tokenValue =
+          cryptocurrency.tokenAmount * token.quote_rate;
+        cryptocurrency.logo = `logos.covalenthq.com/tokens/1/${cryptocurrency.tokenAddress}.png`;
+        tokensWalletContent.push(cryptocurrency);
       }
     });
-    return coinsWalletContent;
-  } catch (err) {
-    console.error(err);
-    err;
+    return tokensWalletContent;
+  } catch (error) {
+    console.error(error, '👎🏻');
   }
 };
 
-export const countBalance = function (walletContent) {
-  return walletContent.reduce((acc, token) => {
-    if (token.coinValue !== null) return acc + token.coinValue;
+export const countBalance = walletContent => {
+  if (!walletContent || walletContent === undefined) return;
+  const balance = walletContent.reduce((acc, token) => {
+    if (token.tokenValue !== null) return acc + token.tokenValue;
   }, 0);
+  return balance;
 };
 
 export const getCoingeckoId = async function (contractAddress) {
   try {
-    const resposne = await fetch(
+    const data = await fetchAPI(
       'https://api.coingecko.com/api/v3/coins/list?include_platform=true'
     );
-    const data = await resposne.json();
     const coinId = data.find(
       token => token.platforms.ethereum === contractAddress
     );
-    console.log(coinId);
     return coinId;
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.error(error);
   }
 };
 
@@ -111,8 +96,8 @@ export const getHistoricalTokenPrice = async function (
     // );
     const price = data.prices.map(price => price[1]);
     return [timestamp, price];
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.error(error);
   }
 };
 
