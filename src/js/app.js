@@ -31,6 +31,7 @@ const navigationSetter = () => {
 const walletDashboard = async e => {
   try {
     e.preventDefault();
+    model.setPath(WalletCoinsView._path);
 
     WalletCoinsView.renderLoader();
 
@@ -46,10 +47,9 @@ const walletDashboard = async e => {
 
 const setDisplayToken = token => {
   try {
-    // CoinChartView.renderLoader();
-
     const getTokenId = async selectedToken => {
       const tokenId = await model.getCoingeckoId(selectedToken);
+      if (tokenId === undefined) return;
       return tokenId.id;
     };
 
@@ -67,7 +67,9 @@ const setDisplayToken = token => {
 const transferTokens = async e => {
   try {
     e.preventDefault();
-    TransferView.renderComponent();
+    model.setPath(TransferView._path);
+
+    TransferView.renderComponent('___');
 
     const transferTokensHandler = () => {
       const sender = transferModel.takeSenderData(
@@ -90,6 +92,11 @@ const transferTokens = async e => {
 WalletCoinsView.sidebarHandler(walletDashboard);
 TransferView.sidebarHandler(transferTokens);
 CoinChartView.displayCoinChartHandler(setDisplayToken);
+
+// const renderFromPath = currentPath => {
+//   const currentPath = model.routes.filter(route => route === currentPath);
+//   currentPath && '';
+// };
 
 const init = () => {
   sidebarCoinsTracker();

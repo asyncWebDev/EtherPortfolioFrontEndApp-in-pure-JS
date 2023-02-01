@@ -1,0 +1,86 @@
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-top: 3rem;
+  color: var(--gray--dark);
+}
+
+.logo-app-title {
+  display: flex;
+  flex-direction: column;
+  text-align: end;
+  margin-right: 1.5rem;
+}
+
+.main-layout-sidebar {
+  border-right: var(--gray--light) 2px solid;
+  min-width: 22rem;
+}
+
+.sidebar {
+  list-style-type: none;
+  margin: 2rem;
+}
+
+.sidebar-content {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 1.2rem;
+  margin: 3rem 0;
+  border: solid 1px var(--gray--light);
+  transition: all 0.3s;
+}
+
+.sidebar-icon {
+  height: 1.5rem;
+  width: 1.4rem;
+  stroke-width: 0.2rem;
+}
+
+.sidebar-content:hover {
+  background-color: var(--gray--light);
+  cursor: pointer;
+}
+
+.sidebar-content:hover .sidebar-icon {
+  stroke: #16181a;
+}
+
+.sidebar-content:hover .btn {
+  color: #16181a;
+}
+
+.coins--grid {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  /* margin-top: 5rem; */
+  font-size: 1.4rem;
+}
+
+.coin-tracker {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem;
+  margin: 0 2rem;
+  border-bottom: 1px solid var(--gray--dark);
+}
+
+/* Error */
+
+.sidebar-error {
+  display: flex;
+  justify-content: center;
+  font-size: 1.4rem;
+}

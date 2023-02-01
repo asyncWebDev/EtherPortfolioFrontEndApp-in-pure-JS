@@ -1,0 +1,52 @@
+.navbar {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.4rem;
+  padding: 2rem;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.65)
+  );
+  background-color: #1864ab;
+  border-bottom: var(--gray--light) 2px solid;
+}
+
+.navbar input,
+.tokens--sender input {
+  font-size: 1.6rem;
+  padding: 1rem 3rem;
+  border-radius: 2rem;
+  background-color: #495057;
+  color: var(--gray--light);
+  border: solid 2px #adb5bd;
+}
+
+.navbar input:hover,
+.tokens--sender input:hover,
+button:hover,
+select:hover {
+  cursor: text;
+}
+
+.search--form {
+  position: relative;
+}
+
+.search-loupe {
+  height: 1.5rem;
+  width: 1.5rem;
+  stroke-width: 0.2rem;
+}
+
+.submit-search-for-address {
+  padding: 2rem;
+}
+
+.network {
+  display: flex;
+  gap: 2rem;
+}

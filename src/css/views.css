@@ -1,0 +1,28 @@
+/* Display tokens in wallet */
+
+/*Wallet*/
+
+.coin-label {
+  display: flex;
+
+  flex-shrink: 0;
+
+  justify-content: space-between;
+  font-size: 1.8em;
+  border-bottom: solid 1px var(--gray--light);
+  padding: 1.2rem;
+  width: 90%;
+  margin-top: 2rem;
+  cursor: pointer;
+}
+
+.coin-label:hover {
+  background-color: #1864ab;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15)
+  );
+}
+
+/*Charts*/

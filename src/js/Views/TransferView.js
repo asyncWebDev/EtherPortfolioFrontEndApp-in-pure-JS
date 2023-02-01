@@ -1,6 +1,7 @@
 import View from './View';
 
 class TransferView extends View {
+  _path = '/transfer';
   parentElement = document.querySelector('.main-view-handler');
   sidebarButtonId = document.getElementById('transfer-tokens');
   targetFormElementId = 'form-transfer';
@@ -8,24 +9,27 @@ class TransferView extends View {
   createMarkup() {
     return `<form class="tokens--sender" id="form-transfer">
     <div class="tokens--sender--box">
-      <label>Amount</label>
+      <label for="amount">Amount</label>
       <div>
         <input
+          name="amount"
           type="number"
           id="send--to--input--amount"
           placeholder="Input token amount"
+          min="0.0001"
+          max="10000"
           required
           autofocus
         />
         <select name="Tokens">
           <option value="ETH">ETH</option>
-          <option value="BTC">BTC</option>
         </select>
       </div>
     </div>
     <div class="tokens--sender--box">
-      <label>Send to address</label>
+      <label for="address">Send to address</label>
       <input
+        name="address"
         type="text"
         id="send--to--input--address"
         size="50"

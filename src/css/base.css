@@ -1,0 +1,55 @@
+:root {
+  --gray--light: #f1f3f5;
+  --gray--dark: #ced4da;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.root {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--gray--light);
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.25)
+  );
+  background-color: #1864ab;
+}
+
+/* to set in html */
+.container {
+  max-width: 130rem;
+}
+
+.main-layout {
+  display: flex;
+  /* padding: 50px auto; */
+  height: 100vh;
+}
+
+.main-layout-dashboard {
+  width: 100%;
+  height: 100vh;
+  overflow: scroll;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.main-view {
+  height: 100vh;
+  margin: 6rem 5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.margin-text {
+  margin-right: 1rem;
+}

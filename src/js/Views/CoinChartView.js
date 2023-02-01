@@ -6,6 +6,7 @@ const options = {};
 class CoinChartView extends View {
   parentElement = '';
   coinChart = null;
+  errorMessage = `Sorry, we couldn't find token with specified ID`;
 
   renderLoader() {
     const html = `<div class="loader-wrapper">

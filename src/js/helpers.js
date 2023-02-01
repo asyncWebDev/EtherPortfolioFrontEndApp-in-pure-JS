@@ -9,7 +9,7 @@ export const fetchAPI = async url => {
   }
 
   if (!response.ok) {
-    throw new Error('Failed to fetch the data');
+    throw new Error('Failed to fetch the data ☹️');
   }
 
   if (response.ok && response.status === 200) {
@@ -23,13 +23,4 @@ export const fetchAPI = async url => {
 export const formatAmount = (balance, cur = CURRENCY) => {
   // if (cur === 'ETH') return `${ethers.utils.formatEther(balance)} ${cur}`;
   if (cur) return Number(balance.toFixed(2)).toLocaleString() + ` ${cur}`;
-};
-
-export const lazyLoad = function (url) {
-  return new Promise((resolve, reject) => {
-    const image = new Image();
-    image.src = url;
-    image.onload = () => resolve(image);
-    image.error = () => reject(new Error('no image'));
-  });
 };

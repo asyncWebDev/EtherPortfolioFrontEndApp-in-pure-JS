@@ -1,6 +1,22 @@
 import { COVALENT_KEY } from './config';
 import { fetchAPI } from './helpers';
 
+export const routes = [
+  { pathName: '/dashboard' },
+  { pathName: '/my-nfts' },
+  { pathName: '/transfer' },
+  { pathName: '/swaps-and-markets' },
+  { pathName: '/docs' },
+];
+
+export const setPath = newPath => {
+  const currentURL = window.location.href;
+  const currentPath = window.location.pathname;
+  const location = currentURL.slice(0, currentURL.lastIndexOf(currentPath));
+  const newUrl = new URL(newPath, location);
+  return window.history.pushState({}, '', newUrl);
+};
+
 export const topDefiTokens = [
   ['bitcoin', 'BTC'],
   ['ethereum', 'ETH'],
@@ -100,30 +116,3 @@ export const getHistoricalTokenPrice = async function (
     console.error(error);
   }
 };
-
-// export const getWalletNFTs = async function () {
-//   try {
-//     const response = await fetch(
-//       `https://api.covalenthq.com/v1/1/address/${exampleAddress}/balances_v2/?quote-currency=USD&format=JSON&nft=true&no-nft-fetch=true&key=${COVALENT_KEY}`
-//     );
-//     const data = await response.json();
-//     console.log(data);
-//     const NFTWalletContent = new Array();
-//     const tokens = data.data.items;
-//     tokens.map(token => {
-//       if (token.type === 'nft' && token.balance >= 1) {
-//         const NFT = {
-//           nftContractAddress: token.contract_address,
-//           nftName: token.contract_ticker_symbol,
-//           nftBalance: token.balance,
-//           nftLogo: token.logo_url,
-//         };
-//         NFTWalletContent.push(NFT);
-//       }
-//     });
-//     return NFTWalletContent;
-//   } catch (err) {
-//     console.error(err);
-//     err;
-//   }
-// };

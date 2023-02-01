@@ -1,4 +1,5 @@
 export default class View {
+  _path = '/docs';
   _data;
   parentElement = '';
   sidebarButtonId = '';

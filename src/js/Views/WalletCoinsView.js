@@ -2,6 +2,7 @@ import View from './View';
 import gmx from './../../images/gmx.png';
 
 class WalletView extends View {
+  _path = '/dashboard';
   parentElement = document.querySelector('.main-view-handler');
   sidebarButtonId = document.getElementById('dashboard');
   errorMessage = `We couldn't find the address, try again with another one 😕`;
@@ -17,7 +18,7 @@ class WalletView extends View {
   createMarkup() {
     const [coinsWalletContent, balance] = this._data;
     return `<div class="main-view-wallet-info">
-              <div class="summary coin-table-small">
+              <div class="net-worth coin-table-small">
                 <span>Net worth</span>
                 <span class="font-strong">${balance.toFixed(2)}</span>
               </div>
