@@ -1,7 +1,7 @@
 # EtherPortfolioFrontEndApp-in-pure-JS
 
-### This is the first unfinished alpha version of ethereum protfolio manager. 
-It allows you to display any ethereum address portfolio content.
+Ethereum portfolio tracker 
+allows you to display any ethereum address portfolio content.
 Thanks to the use of the charts.js library, it's possible to view the price of a token on a chart when clicking on a wallet item. 
 The ethers.js library allows you to transfer ether token to another wallet. For it to work you need to use a provider to connect to an ethereum node.
 
@@ -24,5 +24,3 @@ You can use <a href="https://goerlifaucet.com/" target="_blank">goerli faucet</a
 ### You can provide all keys to the config file.
 
 <br />
-
-The project is still in the deep development phase.
