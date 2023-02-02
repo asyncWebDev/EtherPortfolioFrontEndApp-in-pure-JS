@@ -72,15 +72,10 @@ const transferTokens = async e => {
     TransferView.renderComponent('___');
 
     const transferTokensHandler = () => {
-      const sender = transferModel.takeSenderData(
-        transferModel.provider,
-        transferModel.signer
-      );
       const receiver = transferModel.takeReceiverData(
         TransferView.takeSendToData()
       );
-      console.log(sender, receiver);
-      transferModel.sendEther(sender, receiver);
+      transferModel.sendEther2(receiver);
     };
 
     TransferView.submitUserInputs(transferTokensHandler);
@@ -89,17 +84,23 @@ const transferTokens = async e => {
   }
 };
 
+const connectMetamask = () => {
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('#connect-wallet')) {
+      transferModel.getMetamaskSigner();
+      let connected = true;
+      NavView.changeConnectButton(connected);
+    }
+  });
+};
+
 WalletCoinsView.sidebarHandler(walletDashboard);
 TransferView.sidebarHandler(transferTokens);
 CoinChartView.displayCoinChartHandler(setDisplayToken);
 
-// const renderFromPath = currentPath => {
-//   const currentPath = model.routes.filter(route => route === currentPath);
-//   currentPath && '';
-// };
-
 const init = () => {
   sidebarCoinsTracker();
   navigationSetter();
+  connectMetamask();
 };
 init();

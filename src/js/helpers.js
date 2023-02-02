@@ -21,6 +21,5 @@ export const fetchAPI = async url => {
 };
 
 export const formatAmount = (balance, cur = CURRENCY) => {
-  // if (cur === 'ETH') return `${ethers.utils.formatEther(balance)} ${cur}`;
   if (cur) return Number(balance.toFixed(2)).toLocaleString() + ` ${cur}`;
 };

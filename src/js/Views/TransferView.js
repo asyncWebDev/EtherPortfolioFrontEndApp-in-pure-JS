@@ -16,8 +16,7 @@ class TransferView extends View {
           type="number"
           id="send--to--input--amount"
           placeholder="Input token amount"
-          min="0.0001"
-          max="10000"
+          step=".0001"
           required
           autofocus
         />

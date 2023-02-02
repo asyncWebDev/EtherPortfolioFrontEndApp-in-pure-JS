@@ -47,7 +47,7 @@ class NavView extends View {
               </select>
             </form>
             <button id="connect-wallet">
-              <span id="isConnected">Connect wallet </span>
+              <span>Connect wallet</span>
             </button>
           </div>
         </div>
@@ -59,6 +59,16 @@ class NavView extends View {
       'search--for--address'
     ).value;
     return searchForAddress;
+  }
+
+  changeConnectButton(connected = false) {
+    const connectButton = document.getElementById('connect-wallet');
+    if (connected === true) {
+      connectButton.querySelector('span').textContent = 'Disconnect wallet';
+    }
+    if (connected === false) {
+      connectButton.querySelector('span').textContent = 'Connect wallet';
+    }
   }
 }
 
